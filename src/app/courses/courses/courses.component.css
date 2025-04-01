@@ -1,0 +1,26 @@
+mat-toolbar {
+  background: #004a9f;
+  color: white;
+  border: none;
+  border-radius: 5px 5px 0px 0px;
+}
+
+mat-card {
+  margin: 15px;
+  border-radius: 5px;
+  background: white;
+}
+
+table {
+  width: 100%;
+  background: white;
+}
+
+.loagind-spinner {
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+}
+

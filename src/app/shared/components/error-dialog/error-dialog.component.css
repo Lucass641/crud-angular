@@ -1,0 +1,22 @@
+
+.error-dialog {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.error-dialog h2 {
+  color: red;
+  margin-bottom: 15px;
+}
+
+.error-dialog mat-dialog-content {
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+
+.error-dialog mat-dialog-actions {
+  padding: 0;
+  justify-content: center;
+}
