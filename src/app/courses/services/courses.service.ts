@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Course } from '../model/course';
-import { first, tap } from 'rxjs';
+import { first } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +18,9 @@ export class CoursesService {
     .pipe(
       first(),
     );
+  }
+
+  save(record: Course) {
+    return this.httpClient.post<Course>(this.API, record)
   }
 }

@@ -1,0 +1,37 @@
+mat-card {
+  max-width: 50%;
+  margin: 2em auto;
+  text-align: center;
+}
+
+mat-toolbar {
+  background: #004a9f;
+  color: white;
+  margin-bottom: 1em;
+  border-radius: 15px 15px 0 0;
+}
+
+mat-card-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+button:first-child {
+  background: #004a9f;
+  color: white;
+
+}
+button:first-child:hover{
+  transition: 0.5s;
+  background: #4a7eb9;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.min-width {
+  width: 100%;
+  min-width: 150px;
+}
