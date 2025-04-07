@@ -11,12 +11,6 @@ mat-toolbar {
   border-radius: 15px 15px 0 0;
 }
 
-mat-card-actions {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
 button:first-child {
   background: #004a9f;
   color: white;

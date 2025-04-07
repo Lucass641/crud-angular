@@ -1,10 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
-  FormBuilder,
   FormGroup,
+  NonNullableFormBuilder,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { firstValueFrom } from 'rxjs';
@@ -20,20 +19,22 @@ import { CoursesService } from '../services/courses.service';
   templateUrl: './course-form.component.html',
   styleUrl: './course-form.component.css',
 })
-export class CourseFormComponent {
+export class CourseFormComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: NonNullableFormBuilder,
     private service: CoursesService,
     private snackBar: MatSnackBar,
     private location: Location
   ) {
     this.form = this.formBuilder.group({
-      name: [null, Validators.required],
-      category: [null, Validators.required],
+      name: [''],
+      category: [''],
     });
   }
+
+  ngOnInit(): void {}
 
   async onSubmit() {
     if (this.form.valid) {
