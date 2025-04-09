@@ -3,13 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 
-import { CORE_ROUTES } from '../../routes/core-routes';
-import { AppMaterialModule } from '../../shared/app-material/app-material.module';
-import { SharedModule } from '../../shared/shared.module';
-import { CoursesListComponent } from '../courses-list/courses-list.component';
-import { Course } from '../model/course';
-import { CoursesService } from '../services/courses.service';
-import { ErrorDialogComponent } from './../../shared/components/error-dialog/error-dialog.component';
+import { CORE_ROUTES } from '../../../routes/core-routes';
+import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
+import { SharedModule } from '../../../shared/shared.module';
+import { CoursesListComponent } from '../../components/courses-list/courses-list.component';
+import { Course } from '../../model/course';
+import { CoursesService } from '../../services/courses.service';
+import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-courses',
@@ -20,7 +20,6 @@ import { ErrorDialogComponent } from './../../shared/components/error-dialog/err
 })
 export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;
-
 
   constructor(
     private coursesService: CoursesService,
@@ -44,5 +43,9 @@ export class CoursesComponent implements OnInit {
   ngOnInit(): void {}
   onAdd(): void {
     this.router.navigate([CORE_ROUTES.COURSE_FORM]);
+  }
+
+  onEdit(course: Course) {
+    this.router.navigate([CORE_ROUTES.COURSE_EDIT, course._id]);
   }
 }

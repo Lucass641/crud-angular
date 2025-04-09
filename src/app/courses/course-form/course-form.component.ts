@@ -1,16 +1,26 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
+  FormControl,
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
 import { AppMaterialModule } from '../../shared/app-material/app-material.module';
 import { SharedModule } from '../../shared/shared.module';
+import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
+
+type CourseForm = {
+  _id: FormControl<string | null>;
+  name: FormControl<string | null>;
+  category: FormControl<string | null>;
+};
 
 @Component({
   selector: 'app-course-form',
@@ -20,26 +30,35 @@ import { CoursesService } from '../services/courses.service';
   styleUrl: './course-form.component.css',
 })
 export class CourseFormComponent implements OnInit {
-  form: FormGroup;
+  form: FormGroup<CourseForm>;
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
     private service: CoursesService,
     private snackBar: MatSnackBar,
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute
   ) {
-    this.form = this.formBuilder.group({
-      name: [''],
-      category: [''],
+    this.form = this.formBuilder.group<CourseForm>({
+      _id: new FormControl(''),
+      name: new FormControl('', Validators.required),
+      category: new FormControl('', Validators.required),
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const course: Course = this.route.snapshot.data['course'];
+    this.form.setValue({
+      _id: course._id,
+      name: course.name,
+      category: course.category,
+    });
+  }
 
   async onSubmit() {
     if (this.form.valid) {
       try {
-        const result: any = await firstValueFrom(
+        const result: Course = await firstValueFrom(
           this.service.save(this.form.value)
         );
         this.onSaveSuccess();
@@ -57,12 +76,16 @@ export class CourseFormComponent implements OnInit {
     this.location.back();
   }
 
+  private showSnackBar(message: string) {
+    this.snackBar.open(message, '', { duration: 5000 });
+  }
+
   private onSaveSuccess() {
-    this.snackBar.open('Curso salvo com sucesso!', '', { duration: 5000 });
+    this.showSnackBar('Curso salvo com sucesso!');
     this.onCancel();
   }
 
   private onError() {
-    this.snackBar.open('Erro ao salvar curso.', '', { duration: 5000 });
+    this.showSnackBar('Erro ao salvar curso.');
   }
 }

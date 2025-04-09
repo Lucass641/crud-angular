@@ -6,6 +6,14 @@
       <mat-form-field class="full-width">
         <mat-label>Nome</mat-label>
         <input matInput formControlName="name" />
+        <mat-error class="error-message"
+          *ngIf="
+            form.controls.name.invalid &&
+            (form.controls.name.dirty || form.controls.name.touched)
+          "
+        >
+          Nome é obrigatório.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width">
@@ -15,6 +23,14 @@
           <mat-option value="Front-end">Front-end</mat-option>
           <mat-option value="Back-end">Back-end</mat-option>
         </mat-select>
+        <mat-error class="error-message"
+          *ngIf="
+            form.controls.category.invalid &&
+            (form.controls.category.dirty || form.controls.category.touched)
+          "
+        >
+          Categoria é obrigatória.
+        </mat-error>
       </mat-form-field>
     </form>
   </mat-card-content>
