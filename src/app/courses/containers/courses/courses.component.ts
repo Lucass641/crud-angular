@@ -10,6 +10,7 @@ import { CoursesListComponent } from '../../components/courses-list/courses-list
 import { Course } from '../../model/course';
 import { CoursesService } from '../../services/courses.service';
 import { ErrorDialogComponent } from '../../../shared/components/error-dialog/error-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-courses',
@@ -19,13 +20,18 @@ import { ErrorDialogComponent } from '../../../shared/components/error-dialog/er
   styleUrl: './courses.component.css',
 })
 export class CoursesComponent implements OnInit {
-  courses$: Observable<Course[]>;
+  courses$: Observable<Course[]> | null = null;
 
   constructor(
     private coursesService: CoursesService,
     public dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
+    this.refresh();
+  }
+
+  refresh() {
     this.courses$ = this.coursesService.list().pipe(
       catchError((error) => {
         this.onError('Erro ao carregar cursos.');
@@ -47,5 +53,21 @@ export class CoursesComponent implements OnInit {
 
   onEdit(course: Course) {
     this.router.navigate([CORE_ROUTES.COURSE_EDIT, course._id]);
+  }
+
+  onRemove(course: Course) {
+    this.coursesService.remove(course._id!).subscribe({
+      next: () => {
+        this.refresh();
+        this.snackBar.open('Curso removido com sucesso!', '', {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+        });
+      },
+      error: (error) => {
+        this.onError('Erro ao tentar remover curso.');
+      },
+    });
   }
 }
