@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AppMaterialModule } from './app-material/app-material.module';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 
 
@@ -10,8 +11,8 @@ import { AppMaterialModule } from './app-material/app-material.module';
   declarations: [],
   imports: [
     CommonModule,
-    MatDialogModule,
-    AppMaterialModule
+    AppMaterialModule,
+    ConfirmationDialogComponent
   ],
 })
 export class SharedModule { }
