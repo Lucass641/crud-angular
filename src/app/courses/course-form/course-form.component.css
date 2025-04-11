@@ -11,10 +11,6 @@ mat-toolbar {
   border-radius: 15px 15px 0 0;
 }
 
-.error-message {
-  padding: 0 !important;
-}
-
 mat-card-actions {
   justify-content: center;
   gap: 1em;

@@ -5,15 +5,11 @@
     <form [formGroup]="form" class="min-width">
       <mat-form-field class="full-width">
         <mat-label>Nome</mat-label>
-        <input matInput formControlName="name" />
-        <mat-error class="error-message"
-          *ngIf="
-            form.controls.name.invalid &&
-            (form.controls.name.dirty || form.controls.name.touched)
-          "
-        >
-          Nome é obrigatório.
-        </mat-error>
+        <input matInput formControlName="name" #name/>
+        <mat-hint align="end">{{name.value.length || 0}}/100</mat-hint>
+        <mat-error *ngIf="form.get('name')?.invalid">{{
+          getErrorMessage("name")
+        }}</mat-error>
       </mat-form-field>
 
       <mat-form-field class="full-width">
@@ -23,14 +19,9 @@
           <mat-option value="Front-end">Front-end</mat-option>
           <mat-option value="Back-end">Back-end</mat-option>
         </mat-select>
-        <mat-error class="error-message"
-          *ngIf="
-            form.controls.category.invalid &&
-            (form.controls.category.dirty || form.controls.category.touched)
-          "
-        >
-          Categoria é obrigatória.
-        </mat-error>
+        <mat-error *ngIf="form.get('category')?.invalid">{{
+          getErrorMessage("category")
+        }}</mat-error>
       </mat-form-field>
     </form>
   </mat-card-content>

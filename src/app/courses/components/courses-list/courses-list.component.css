@@ -11,3 +11,11 @@
   flex: 0 0 auto;
   margin: 0 auto;
 }
+
+button:first-child {
+  color:#4a7eb9
+}
+
+button:nth-child(2) {
+  color:#F44336
+}
