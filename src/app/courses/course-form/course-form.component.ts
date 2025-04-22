@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
+  FormArray,
   FormControl,
   FormGroup,
   NonNullableFormBuilder,
@@ -15,11 +16,17 @@ import { AppMaterialModule } from '../../shared/app-material/app-material.module
 import { SharedModule } from '../../shared/shared.module';
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
+import { Lesson } from '../model/lesson';
 
 type CourseForm = {
   _id: FormControl<string | null>;
   name: FormControl<string | null>;
   category: FormControl<string | null>;
+  lesson: FormArray<FormGroup<{
+    id: FormControl<string | null>;
+    name: FormControl<string | null>;
+    youtubeUrl: FormControl<string | null>;
+  }>>;
 };
 
 @Component({
@@ -30,7 +37,7 @@ type CourseForm = {
   styleUrl: './course-form.component.css',
 })
 export class CourseFormComponent implements OnInit {
-  form: FormGroup<CourseForm>;
+  form!: FormGroup<CourseForm>;
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
@@ -38,28 +45,41 @@ export class CourseFormComponent implements OnInit {
     private snackBar: MatSnackBar,
     private location: Location,
     private route: ActivatedRoute
-  ) {
+  ) {  }
+
+  ngOnInit(): void {
+    const course: Course = this.route.snapshot.data['course'];
     this.form = this.formBuilder.group<CourseForm>({
-      _id: new FormControl(''),
-      name: new FormControl('', {
+      _id: new FormControl(course._id),
+      name: new FormControl(course.name, {
         validators: [
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(100),
         ],
       }),
-      category: new FormControl('', { validators: [Validators.required] }),
+      category: new FormControl(course.category, { validators: [Validators.required] }),
+      lesson: this.formBuilder.array(this.retrieveLessons(course)),
     });
   }
 
-  ngOnInit(): void {
-    const course: Course = this.route.snapshot.data['course'];
-    this.form.setValue({
-      _id: course._id,
-      name: course.name,
-      category: course.category,
-    });
+  private retrieveLessons(course: Course) {
+    const lessons = [];
+    if (course?.lessons) {
+      course.lessons.forEach(lesson => lessons.push(this.createLesson(lesson)));
+    } else {
+      lessons.push(this.createLesson());
+    }
+    return lessons;
   }
+
+  private createLesson(lesson: Lesson = {id: '', name: '', youtubeUrl: ''}) {
+    return this.formBuilder.group({
+      id: [lesson.id],
+      name: [lesson.name],
+      youtubeUrl: [lesson.youtubeUrl]
+  });
+}
 
   async onSubmit() {
     if (this.form.valid) {
