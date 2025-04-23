@@ -42,6 +42,7 @@ button:first-child:hover{
 .header-lessons mat-toolbar {
   border-radius: 0;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .header-lessons button {
@@ -56,6 +57,11 @@ button:first-child:hover{
   justify-items: center;
   align-items: center;
   margin: 0 0 20px 0;
+}
+
+.form-array-error {
+  text-align: left;
+  margin: 0 0 10px 5px;
 }
 
 
