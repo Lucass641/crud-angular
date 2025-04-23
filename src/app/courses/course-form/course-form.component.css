@@ -34,3 +34,20 @@ button:first-child:hover{
   width: 100%;
   min-width: 150px;
 }
+
+.header-lessons {
+  border: 1px solid #004a9f;
+}
+
+.header-lessons mat-toolbar {
+  border-radius: 0;
+  justify-content: space-between;
+}
+
+.header-lessons button {
+  background: #1576e6;
+  color: white;
+  margin: 0.5em;
+}
+
+

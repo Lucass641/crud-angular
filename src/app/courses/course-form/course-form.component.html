@@ -23,6 +23,37 @@
           getErrorMessage("category")
         }}</mat-error>
       </mat-form-field>
+
+      <div class="header-lessons">
+        <mat-toolbar >
+          <span>Aulas</span>
+          <button mat-icon-button>
+            <mat-icon aria-label="Adicionar uma nova aula.">add</mat-icon>
+          </button>
+      </mat-toolbar>
+
+      <table
+      style="width: 100%"
+      formArrayName="lesson"
+      *ngFor="let lesson of getLessonsFromArray() let i = index">
+        <tr [formGroupName]="i">
+          <td style="width: 65%">
+            <mat-form-field class="full-width">
+              <mat-label>Nome da Aula</mat-label>
+            <input matInput formControlName="name"/>
+          </mat-form-field>
+        </td>
+        <td style="width: 30%">
+          <mat-form-field class="full-width">
+            <span matPrefix>https://youtu.be/</span>
+          <mat-label>URL</mat-label>
+          <input matInput formControlName="youtubeUrl"/>
+        </mat-form-field>
+      </td>
+        </tr>
+      </table>
+    </div>
+
     </form>
   </mat-card-content>
 

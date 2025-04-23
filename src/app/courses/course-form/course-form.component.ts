@@ -6,6 +6,7 @@ import {
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
+  UntypedFormArray,
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -79,6 +80,10 @@ export class CourseFormComponent implements OnInit {
       name: [lesson.name],
       youtubeUrl: [lesson.youtubeUrl]
   });
+}
+
+getLessonsFromArray() {
+  return (<UntypedFormArray>this.form.get('lesson')).controls;
 }
 
   async onSubmit() {
