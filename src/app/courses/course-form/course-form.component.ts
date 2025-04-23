@@ -86,6 +86,16 @@ getLessonsFromArray() {
   return (<UntypedFormArray>this.form.get('lesson')).controls;
 }
 
+addNewLesson() {
+  const lessons = this.form.get('lesson') as UntypedFormArray;
+  lessons.push(this.createLesson());
+}
+
+removeLesson(index:number) {
+  const lessons = this.form.get('lesson') as UntypedFormArray;
+  lessons.removeAt(index);
+}
+
   async onSubmit() {
     if (this.form.valid) {
       try {

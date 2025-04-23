@@ -50,4 +50,12 @@ button:first-child:hover{
   margin: 0.5em;
 }
 
+.header-lessons .delete {
+  color: #F44336;
+  background: none;
+  justify-items: center;
+  align-items: center;
+  margin: 0 0 20px 0;
+}
+
 
