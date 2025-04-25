@@ -13,6 +13,6 @@ export const courseResolver: ResolveFn<Course> = (
   if (route.params?.['id']) {
     return service.loadById(route.params['id']);
   } else {
-    return of({ _id: '', name: '', category: '', lessons: [] });
+    return of({ _id: '', name: '', category: '', lesson: [] });
   }
 };

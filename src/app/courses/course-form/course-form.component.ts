@@ -1,4 +1,3 @@
-import { FormUtilsService } from './../../shared/form/form-utils.service';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -17,8 +16,9 @@ import { firstValueFrom } from 'rxjs';
 import { AppMaterialModule } from '../../shared/app-material/app-material.module';
 import { SharedModule } from '../../shared/shared.module';
 import { Course } from '../model/course';
-import { CoursesService } from '../services/courses.service';
 import { Lesson } from '../model/lesson';
+import { CoursesService } from '../services/courses.service';
+import { FormUtilsService } from './../../shared/form/form-utils.service';
 
 type CourseForm = {
   _id: FormControl<string | null>;
@@ -75,8 +75,8 @@ export class CourseFormComponent implements OnInit {
 
   private retrieveLessons(course: Course) {
     const lessons = [];
-    if (course?.lessons) {
-      course.lessons.forEach((lesson) =>
+    if (course?.lesson) {
+      course.lesson.forEach((lesson) =>
         lessons.push(this.createLesson(lesson))
       );
     } else {
@@ -88,20 +88,26 @@ export class CourseFormComponent implements OnInit {
   private createLesson(lesson: Lesson = { id: '', name: '', youtubeUrl: '' }) {
     return this.formBuilder.group({
       id: [lesson.id],
-      name: [lesson.name, {
-        validators: [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ],
-      }],
-      youtubeUrl: [lesson.youtubeUrl, {
-        validators: [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(11),
-        ],
-      }],
+      name: [
+        lesson.name,
+        {
+          validators: [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.maxLength(100),
+          ],
+        },
+      ],
+      youtubeUrl: [
+        lesson.youtubeUrl,
+        {
+          validators: [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(11),
+          ],
+        },
+      ],
     });
   }
 
@@ -123,7 +129,7 @@ export class CourseFormComponent implements OnInit {
     if (this.form.valid) {
       try {
         const result: Course = await firstValueFrom(
-          this.service.save(this.form.value)
+          this.service.save(this.form.value as Partial<Course>)
         );
         this.onSaveSuccess();
       } catch (error) {
@@ -150,5 +156,4 @@ export class CourseFormComponent implements OnInit {
   private onError() {
     this.showSnackBar('Erro ao salvar curso.');
   }
-
 }
