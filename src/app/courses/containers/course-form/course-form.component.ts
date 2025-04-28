@@ -1,3 +1,8 @@
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -13,12 +18,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
-import { AppMaterialModule } from '../../shared/app-material/app-material.module';
-import { SharedModule } from '../../shared/shared.module';
-import { Course } from '../model/course';
-import { Lesson } from '../model/lesson';
-import { CoursesService } from '../services/courses.service';
-import { FormUtilsService } from './../../shared/form/form-utils.service';
+import { Course } from '../../model/course';
+import { Lesson } from '../../model/lesson';
+import { CoursesService } from '../../services/courses.service';
+import { FormUtilsService } from '../../../shared/form/form-utils.service';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
 
 type CourseForm = {
   _id: FormControl<string | null>;
@@ -36,7 +42,17 @@ type CourseForm = {
 @Component({
   selector: 'app-course-form',
   standalone: true,
-  imports: [AppMaterialModule, SharedModule, ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    MatCardModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatTableModule,
+    MatInputModule,
+  ],
   templateUrl: './course-form.component.html',
   styleUrl: './course-form.component.css',
 })

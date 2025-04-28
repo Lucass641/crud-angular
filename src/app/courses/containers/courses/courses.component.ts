@@ -1,11 +1,12 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { catchError, Observable, of, tap } from 'rxjs';
 
 import { CORE_ROUTES } from '../../../routes/core-routes';
-import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
-import { SharedModule } from '../../../shared/shared.module';
+
+
 import { CoursesListComponent } from '../../components/courses-list/courses-list.component';
 import { Course } from '../../model/course';
 import { CoursesService } from '../../services/courses.service';
@@ -13,12 +14,15 @@ import { ErrorDialogComponent } from '../../../shared/components/error-dialog/er
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from '../../../shared/components/confirmation-dialog/confirmation-dialog.component';
 import { CoursePage } from '../../model/course-page';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [SharedModule, AppMaterialModule, CoursesListComponent],
+  imports: [CommonModule, CoursesListComponent, MatPaginatorModule, MatToolbarModule, MatCardModule, MatProgressSpinnerModule],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.css',
 })
@@ -78,7 +82,7 @@ export class CoursesComponent implements OnInit {
         this.coursesService.remove(course._id!).subscribe({
           next: () => {
             this.refresh();
-            this.snackBar.open('Curso removido com sucesso!', '', {
+            this.snackBar.open('Curso removido com sucesso!', 'X', {
               duration: 5000,
               verticalPosition: 'top',
               horizontalPosition: 'center',

@@ -1,12 +1,15 @@
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Course } from '../../model/course';
-import { SharedModule } from '../../../shared/shared.module';
-import { AppMaterialModule } from '../../../shared/app-material/app-material.module';
+
+
 import { CategoryPipe } from '../../../shared/pipes/category.pipe';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-courses-list',
-  imports: [SharedModule, AppMaterialModule, CategoryPipe],
+  imports: [CategoryPipe, MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './courses-list.component.html',
   styleUrl: './courses-list.component.css',
 })
